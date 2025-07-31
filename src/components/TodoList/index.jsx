@@ -62,7 +62,23 @@ const TODOS_KEY = "todos";
 
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
-  console.log(todos);
+
+  const onToggleCompleted = (todo) => {
+    const updateTodos = todos.map((oldTodo) => {
+      if (oldTodo.id === todo.id) {
+        return {
+          ...oldTodo,
+          completed: todo.completed
+        }
+      }
+      return oldTodo
+    })
+
+    localStorage.setItem(TODOS_KEY, JSON.stringify(updateTodos))
+    setTodos(updateTodos)
+  }
+
+
   useEffect(() => {
     const savedTodos = JSON.parse(localStorage.getItem(TODOS_KEY));
     setTodos(savedTodos || TODO_LIST);
@@ -72,7 +88,11 @@ const TodoList = () => {
     <>
       <h2>Todo list</h2>
       {todos.map((todo) => (
-        <TodoItem key={todo.id} todo={todo} />
+        <TodoItem
+            key={todo.id}
+            todo={todo}
+            onCompleted={onToggleCompleted}
+        />
       ))}
     </>
   );
