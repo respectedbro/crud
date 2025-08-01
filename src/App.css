@@ -1,4 +1,13 @@
 #root {
-  padding: 2rem;
+  padding: 1rem;
+}
+
+.title {
   text-align: center;
+}
+
+.wrapper {
+  display: flex;
+  gap: 15px;
+  justify-content: space-around;
 }

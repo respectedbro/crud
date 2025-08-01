@@ -68,16 +68,15 @@ const TodoList = () => {
       if (oldTodo.id === todo.id) {
         return {
           ...oldTodo,
-          completed: todo.completed
-        }
+          completed: todo.completed,
+        };
       }
-      return oldTodo
-    })
+      return oldTodo;
+    });
 
-    localStorage.setItem(TODOS_KEY, JSON.stringify(updateTodos))
-    setTodos(updateTodos)
-  }
-
+    localStorage.setItem(TODOS_KEY, JSON.stringify(updateTodos));
+    setTodos(updateTodos);
+  };
 
   useEffect(() => {
     const savedTodos = JSON.parse(localStorage.getItem(TODOS_KEY));
@@ -85,16 +84,12 @@ const TodoList = () => {
     console.log(localStorage);
   }, []);
   return (
-    <>
+    <div>
       <h2>Todo list</h2>
       {todos.map((todo) => (
-        <TodoItem
-            key={todo.id}
-            todo={todo}
-            onCompleted={onToggleCompleted}
-        />
+        <TodoItem key={todo.id} todo={todo} onCompleted={onToggleCompleted} />
       ))}
-    </>
+    </div>
   );
 };
 
