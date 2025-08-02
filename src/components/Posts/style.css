@@ -1,4 +1,12 @@
 .posts {
   height: 300px;
   overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.posts-item {
+  display: flex;
+  gap: 10px;
 }
