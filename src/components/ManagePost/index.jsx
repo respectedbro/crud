@@ -3,6 +3,8 @@ import { useState } from "react";
 const ManagePost = ({ addNewPost }) => {
   const [formValues, setFormValues] = useState({
     userId: 1,
+    title: '',
+    body: ''
   });
 
   const onSubmit = (e) => {
@@ -46,7 +48,7 @@ const ManagePost = ({ addNewPost }) => {
           value={formValues.body}
           onChange={onChangeValues}
         ></textarea>
-
+<br/>
         <button>Отправить</button>
       </form>
     </div>
