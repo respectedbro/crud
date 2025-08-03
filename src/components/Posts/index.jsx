@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./style.css";
 import ManagePost from "../ManagePost/index.jsx";
+import { Post } from "./components/Post/index.jsx";
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
@@ -27,10 +28,7 @@ const Posts = () => {
     <div>
       <div className="posts">
         {posts.map((post) => (
-          <div className="posts-item" key={post.id}>
-            {post.title}
-            <button onClick={() => deletePost(post.id)}>Удалить</button>
-          </div>
+          <Post deletePost={deletePost} post={post} />
         ))}
       </div>
       <ManagePost addNewPost={addNewPost} />
