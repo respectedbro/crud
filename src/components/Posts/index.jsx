@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
-import './style.css';
 import ManagePost from '../ManagePost/index.jsx';
 import {Post} from './components/Post/index.jsx';
+import './style.css';
 
 const Posts = () => {
     const [posts, setPosts] = useState([]);
@@ -9,6 +9,17 @@ const Posts = () => {
 
     const addNewPost = (post) => {
         setPosts([...posts, post]);
+    };
+
+    const editPost = (post) => {
+        const editedPosts = posts.map((oldPost) => {
+            if (oldPost.id === post.id) {
+                return post;
+            }
+            return oldPost;
+        });
+
+        setPosts(editedPosts)
     };
 
     const selectPost = (post) => {
@@ -23,7 +34,6 @@ const Posts = () => {
         });
     };
 
-    console.log(selectedPost);
 
     useEffect(() => {
         fetch('https://jsonplaceholder.typicode.com/posts')
@@ -46,7 +56,9 @@ const Posts = () => {
                     )
                 }
             </div>
-            <ManagePost addNewPost={addNewPost}/>
+            <ManagePost addNewPost={addNewPost} selectedPost={selectedPost}
+            editPost={editPost}
+            />
         </div>
     );
 };
