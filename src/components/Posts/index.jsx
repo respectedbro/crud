@@ -2,10 +2,12 @@ import {useEffect, useState} from 'react';
 import ManagePost from '../ManagePost/index.jsx';
 import {Post} from './components/Post/index.jsx';
 import './style.css';
+import DetailPost from '../DetailPost/index.jsx';
 
 const Posts = () => {
     const [posts, setPosts] = useState([]);
     const [selectedPost, setSelectedPost] = useState(null);
+    const [postForDetailView, setPostForDetailView] = useState(null);
 
     const addNewPost = (post) => {
         setPosts([...posts, post]);
@@ -19,11 +21,17 @@ const Posts = () => {
             return oldPost;
         });
 
-        setPosts(editedPosts)
+        setPosts(editedPosts);
     };
 
     const selectPost = (post) => {
         setSelectedPost(post);
+        setPostForDetailView(null)
+    };
+
+    const showDetailPost = (postId) => {
+        setSelectedPost(null)
+        setPostForDetailView(postId);
     };
 
     const deletePost = (postId) => {
@@ -51,14 +59,18 @@ const Posts = () => {
                                 post={post}
                                 deletePost={deletePost}
                                 selectPost={selectPost}
+                                showDetailPost={showDetailPost}
                             />
                         )
                     )
                 }
             </div>
-            <ManagePost addNewPost={addNewPost} selectedPost={selectedPost}
-            editPost={editPost}
-            />
+            {!postForDetailView && <ManagePost
+                addNewPost={addNewPost}
+                selectedPost={selectedPost}
+                editPost={editPost}
+            />}
+            {postForDetailView && !selectedPost && <DetailPost postId={postForDetailView}/>}
         </div>
     );
 };
