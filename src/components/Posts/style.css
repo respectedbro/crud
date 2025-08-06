@@ -5,3 +5,20 @@
   flex-direction: column;
   gap: 15px;
 }
+
+.pagination {
+  display: flex;
+  gap: 15px;
+}
+
+.pagination-item {
+  cursor: pointer;
+}
+
+.pagination-item:hover {
+  color: red;
+}
+
+.active {
+  color: green;
+}

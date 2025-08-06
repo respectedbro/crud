@@ -1,31 +1,28 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from "react";
+import Info from "./components/Info/index.jsx";
+import Comments from "./components/Comments/index.jsx";
 
-const DetailPost = ({postId}) => {
-    const [post, setPost] = useState(null);
+const DetailPost = ({ postId }) => {
+  const [post, setPost] = useState(null);
+  const [comments, setComments] = useState(null);
 
+  useEffect(() => {
+    fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
+      .then((response) => response.json())
+      .then((post) => setPost(post));
 
-    useEffect(() => {
-        fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
-            .then((response) => response.json())
-            .then((post) => setPost(post));
-    }, [postId]);
+    fetch(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`)
+      .then((response) => response.json())
+      .then((comments) => setComments(comments));
+  }, [postId]);
 
+  return (
+    <>
+      {post && <Info post={post} />}
 
-    return (
-        <>
-            {post && <div>
-                <h2>dPost - {postId}</h2>
-                <br/>
-                <div><b>Title</b> - {post.title}</div>
-                <br/>
-                <div style={{maxWidth: '200px'}}><b>Text</b> - {post.body}</div>
-                <br/>
-                <div><b>User id</b> - {post.userId}</div>
-            </div>}
-        </>
-    );
-
-
+      {comments && <Comments comments={comments} />}
+    </>
+  );
 };
 
 export default DetailPost;
